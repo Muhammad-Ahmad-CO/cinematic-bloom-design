@@ -1,0 +1,263 @@
+import wideImg from "@/assets/wide.jpg";
+import orbImg from "@/assets/orb.png";
+import work1 from "@/assets/work-1.jpg";
+import work2 from "@/assets/work-2.jpg";
+import work3 from "@/assets/work-3.jpg";
+import { Reveal } from "./Reveal";
+import { useParallax } from "@/hooks/use-reveal";
+
+export function Statement() {
+  return (
+    <section id="about" className="mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56">
+      <Reveal className="eyebrow mb-14">(01) — Philosophy</Reveal>
+      <h2 className="display-xl text-[clamp(2rem,7.2vw,7rem)]">
+        <Reveal delay={60}>Ideas that grow</Reveal>
+        <Reveal delay={180} className="text-accent/85">
+          beyond the
+        </Reveal>
+        <Reveal delay={300}>expected.</Reveal>
+      </h2>
+      <Reveal
+        delay={420}
+        className="mt-16 ml-auto max-w-md text-sm leading-relaxed text-muted-foreground"
+      >
+        Every project starts as a small, stubborn idea. We give it structure, light and restraint —
+        then let it take up all the space it deserves.
+      </Reveal>
+    </section>
+  );
+}
+
+export function FullWidthVisual() {
+  const { ref, offset } = useParallax<HTMLDivElement>(0.3);
+
+  return (
+    <section ref={ref} className="relative h-[70vh] w-full overflow-hidden md:h-[92vh]">
+      <img
+        src={wideImg}
+        alt="Translucent leaf glowing against a black backdrop"
+        width={1920}
+        height={1088}
+        loading="lazy"
+        className="h-[125%] w-full object-cover"
+        style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-background/25" />
+      <span className="eyebrow absolute bottom-6 left-6 md:bottom-10 md:left-12">
+        Fig. 02 — Field study, Northern greenhouse
+      </span>
+    </section>
+  );
+}
+
+const SERVICES = [
+  { n: "01", t: "Creative Direction", d: "Positioning, art direction and the tone that carries it." },
+  { n: "02", t: "Digital Experiences", d: "Sites and products built for atmosphere and speed." },
+  { n: "03", t: "Brand Systems", d: "Identity, type and rules that scale without diluting." },
+  { n: "04", t: "Motion Design", d: "Timing, weight and restraint — motion that reads as craft." },
+  { n: "05", t: "Interactive Development", d: "Engineering the details most teams quietly skip." },
+  { n: "06", t: "Visual Strategy", d: "Long-view thinking for brands that plan in decades." },
+];
+
+export function Services() {
+  return (
+    <section id="process" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
+      <Reveal className="eyebrow mb-16">(02) — Capabilities</Reveal>
+      <div className="border-t border-border">
+        {SERVICES.map((s, i) => (
+          <Reveal key={s.n} delay={i * 70}>
+            <article className="group grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3 border-b border-border px-2 py-8 transition-colors duration-500 hover:bg-card/60 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,20rem)] md:items-center md:px-6 md:py-11">
+              <span className="text-xs tracking-[0.24em] text-muted-foreground transition-colors duration-500 group-hover:text-accent">
+                {s.n}
+              </span>
+              <h3 className="text-2xl font-medium tracking-tight transition-all duration-500 group-hover:translate-x-2 group-hover:text-accent md:text-4xl">
+                {s.t}
+              </h3>
+              <p className="col-start-2 text-sm leading-relaxed text-muted-foreground md:col-start-3">
+                {s.d}
+              </p>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function Experimental() {
+  return (
+    <section className="deep-glow grain relative overflow-hidden py-28 md:py-44">
+      <div className="mx-auto flex max-w-[1600px] flex-col items-center px-6 text-center md:px-12">
+        <Reveal className="eyebrow">(03) — Studio experiment</Reveal>
+        <div className="relative my-14 flex items-center justify-center md:my-20">
+          <div
+            className="animate-breathe absolute h-[26rem] w-[26rem] rounded-full blur-[110px] md:h-[38rem] md:w-[38rem]"
+            style={{ background: "radial-gradient(circle, var(--accent), transparent 65%)" }}
+          />
+          <img
+            src={orbImg}
+            alt="Glowing organic sculptural form"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="animate-soft-spin relative h-56 w-56 object-contain opacity-90 md:h-96 md:w-96"
+          />
+        </div>
+        <Reveal className="display-xl max-w-3xl text-[clamp(1.5rem,4vw,3.25rem)]">
+          A single form, studied for a thousand hours.
+        </Reveal>
+        <Reveal delay={140} className="mt-8 max-w-md text-sm leading-relaxed text-muted-foreground">
+          Our lab work never ships to a client. It sharpens everything that does.
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function BigStatement() {
+  return (
+    <section id="statement" className="mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56">
+      <h2 className="display-xl text-[clamp(2rem,7.6vw,7.5rem)]">
+        <Reveal>Built to make</Reveal>
+        <Reveal delay={140}>people look</Reveal>
+        <Reveal delay={280} className="text-accent/85">
+          twice.
+        </Reveal>
+      </h2>
+    </section>
+  );
+}
+
+const PROJECTS = [
+  { img: work1, title: "Atrium Nine", cat: "Brand System / Spatial", year: "2025" },
+  { img: work2, title: "Signal Bloom", cat: "Digital Product / Motion", year: "2024" },
+  { img: work3, title: "Nocturne Field", cat: "Campaign / Art Direction", year: "2024" },
+];
+
+export function Work() {
+  return (
+    <section id="work" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
+      <Reveal className="eyebrow mb-16">(04) — Selected work</Reveal>
+      <div className="flex flex-col gap-8 md:gap-16">
+        {PROJECTS.map((p, i) => (
+          <Reveal key={p.title} delay={i * 90}>
+            <a
+              href="#contact"
+              className="group block overflow-hidden rounded-2xl border border-border"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden md:aspect-[21/9]">
+                <img
+                  src={p.img}
+                  alt={`${p.title} — ${p.cat}`}
+                  width={1400}
+                  height={900}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-background/35 transition-colors duration-700 group-hover:bg-background/55" />
+                <div className="absolute inset-x-0 bottom-0 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 p-6 transition-transform duration-700 ease-out group-hover:-translate-y-2 md:p-10">
+                  <div className="min-w-0">
+                    <h3 className="display-xl truncate text-[clamp(1.5rem,4vw,3.5rem)]">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-xs tracking-[0.22em] text-muted-foreground uppercase">
+                      {p.cat}
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-xs tracking-[0.22em] text-muted-foreground">
+                    {p.year}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function FinalCta() {
+  return (
+    <section
+      id="contact"
+      className="deep-glow grain relative flex min-h-[92svh] items-center overflow-hidden"
+    >
+      <div
+        className="animate-aurora pointer-events-none absolute inset-0 opacity-60 blur-[130px]"
+        style={{ background: "radial-gradient(50% 50% at 50% 60%, var(--deep), transparent 70%)" }}
+      />
+      <div className="relative mx-auto w-full max-w-[1600px] px-6 py-28 md:px-12">
+        <h2 className="display-xl text-[clamp(2.1rem,8vw,8rem)]">
+          <Reveal>Let&apos;s create</Reveal>
+          <Reveal delay={140}>something</Reveal>
+          <Reveal delay={280} className="text-accent/85">
+            unexpected.
+          </Reveal>
+        </h2>
+        <Reveal delay={420}>
+          <a
+            href="mailto:studio@verdant.design"
+            className="group mt-14 inline-flex items-center gap-3 text-lg tracking-tight transition-colors duration-500 hover:text-accent md:text-2xl"
+          >
+            Start a conversation
+            <span className="transition-transform duration-500 group-hover:translate-x-2">→</span>
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="border-t border-border">
+      <div className="mx-auto grid max-w-[1600px] gap-12 px-6 py-16 md:grid-cols-4 md:px-12 md:py-20">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <span className="h-2 w-2 rounded-full bg-accent" />
+            <span className="text-sm font-semibold tracking-[0.28em] uppercase">Verdant</span>
+          </div>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            An experimental design studio working between technology and the natural world.
+          </p>
+        </div>
+
+        <nav aria-label="Footer" className="flex flex-col gap-3 text-xs tracking-[0.2em] uppercase">
+          {["Work", "About", "Process", "Contact"].map((l) => (
+            <a
+              key={l}
+              href={`#${l.toLowerCase()}`}
+              className="text-muted-foreground transition-colors duration-300 hover:text-accent"
+            >
+              {l}
+            </a>
+          ))}
+        </nav>
+
+        <nav aria-label="Social" className="flex flex-col gap-3 text-xs tracking-[0.2em] uppercase">
+          {["Instagram", "Behance", "LinkedIn", "Read.cv"].map((l) => (
+            <a
+              key={l}
+              href="#top"
+              className="text-muted-foreground transition-colors duration-300 hover:text-accent"
+            >
+              {l}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex flex-col gap-3 text-xs text-muted-foreground">
+          <a
+            href="mailto:studio@verdant.design"
+            className="tracking-[0.12em] transition-colors duration-300 hover:text-accent"
+          >
+            studio@verdant.design
+          </a>
+          <span>Lisbon — 38.72°N, 9.14°W</span>
+          <span>© {new Date().getFullYear()} Verdant Studio</span>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -56,3 +56,35 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(strength = 0
 
   return { ref, offset };
 }
+
+/** Returns 0→1 progress of an element travelling through the viewport. */
+export function useScrollProgress<T extends HTMLElement = HTMLDivElement>() {
+  const ref = useRef<T | null>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const node = ref.current;
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      const total = rect.height + window.innerHeight;
+      const p = (window.innerHeight - rect.top) / total;
+      setProgress(Math.min(1, Math.max(0, p)));
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return { ref, progress };
+}

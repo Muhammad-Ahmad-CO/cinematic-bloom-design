@@ -4,11 +4,30 @@ import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
 import work3 from "@/assets/work-3.jpg";
 import { Reveal } from "./Reveal";
-import { useParallax } from "@/hooks/use-reveal";
+import { useParallax, useReveal, useScrollProgress } from "@/hooks/use-reveal";
 
 export function Statement() {
+  // Philosophy — an idea "growing": a vine-like line draws downward on entry.
+  const { ref, visible } = useReveal<HTMLElement>(0.25);
+
   return (
-    <section id="about" className="mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56">
+    <section
+      ref={ref}
+      id="about"
+      className="relative mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56"
+    >
+      <div className="pointer-events-none absolute top-24 bottom-24 left-2 w-px overflow-hidden md:left-6">
+        <span
+          className={`block h-full w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent ${
+            visible ? "animate-grow-line" : "scale-y-0 opacity-0"
+          }`}
+        />
+      </div>
+      <span
+        className="animate-sway pointer-events-none absolute top-1/3 -right-10 h-64 w-64 rounded-full blur-[120px] md:h-96 md:w-96"
+        style={{ background: "radial-gradient(circle, var(--deep), transparent 70%)" }}
+      />
+
       <Reveal className="eyebrow mb-14">(01) — Philosophy</Reveal>
       <h2 className="display-xl text-[clamp(2rem,7.2vw,7rem)]">
         <Reveal delay={60}>Ideas that grow</Reveal>
@@ -29,6 +48,7 @@ export function Statement() {
 }
 
 export function FullWidthVisual() {
+  // Field study — a slow scanning light passes over the specimen.
   const { ref, offset } = useParallax<HTMLDivElement>(0.3);
 
   return (
@@ -43,12 +63,20 @@ export function FullWidthVisual() {
         style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
       />
       <div className="pointer-events-none absolute inset-0 bg-background/25" />
+      <div
+        className="animate-scan pointer-events-none absolute inset-x-0 top-0 h-24 blur-[2px]"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent, color-mix(in oklab, var(--accent) 22%, transparent), transparent)",
+        }}
+      />
       <span className="eyebrow absolute bottom-6 left-6 md:bottom-10 md:left-12">
         Fig. 02 — Field study, Northern greenhouse
       </span>
     </section>
   );
 }
+
 
 const SERVICES = [
   { n: "01", t: "Creative Direction", d: "Positioning, art direction and the tone that carries it." },

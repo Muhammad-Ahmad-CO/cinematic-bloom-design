@@ -88,13 +88,29 @@ const SERVICES = [
 ];
 
 export function Services() {
+  // Capabilities — a progress rail fills as the list scrolls past, like work being completed.
+  const { ref, progress } = useScrollProgress<HTMLDivElement>();
+
   return (
     <section id="process" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
       <Reveal className="eyebrow mb-16">(02) — Capabilities</Reveal>
-      <div className="border-t border-border">
+      <div ref={ref} className="relative border-t border-border pl-4 md:pl-8">
+        <span className="pointer-events-none absolute top-0 bottom-0 left-0 w-px bg-border">
+          <span
+            className="block w-px origin-top bg-accent transition-[height] duration-150 ease-out"
+            style={{ height: `${Math.round(progress * 100)}%` }}
+          />
+        </span>
         {SERVICES.map((s, i) => (
           <Reveal key={s.n} delay={i * 70}>
-            <article className="group grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3 border-b border-border px-2 py-8 transition-colors duration-500 hover:bg-card/60 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,20rem)] md:items-center md:px-6 md:py-11">
+            <article className="group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3 overflow-hidden border-b border-border px-2 py-8 transition-colors duration-500 hover:bg-card/60 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,20rem)] md:items-center md:px-6 md:py-11">
+              <span
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -translate-x-full opacity-0 transition-opacity duration-500 group-hover:animate-sheen group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 14%, transparent), transparent)",
+                }}
+              />
               <span className="text-xs tracking-[0.24em] text-muted-foreground transition-colors duration-500 group-hover:text-accent">
                 {s.n}
               </span>
@@ -111,6 +127,7 @@ export function Services() {
     </section>
   );
 }
+
 
 export function Experimental() {
   return (

@@ -12,20 +12,31 @@ export function Hero() {
       className="grain relative flex min-h-[100svh] w-full items-end overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <img
-          src={heroImg}
-          alt="Dark botanical forms lit by a single soft light"
-          width={1920}
-          height={1200}
-          className="animate-drift h-full w-full object-cover"
+        <div
+          className="absolute inset-0"
           style={{ transform: `translate3d(0, ${offset * 0.4}px, 0)` }}
+        >
+          <img
+            src={heroImg}
+            alt="Dark botanical forms lit by a single soft light"
+            width={1920}
+            height={1200}
+            className="animate-drift h-full w-full object-cover brightness-[1.45] contrast-[1.05] saturate-[1.1]"
+          />
+        </div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, color-mix(in oklab, var(--background) 65%, transparent) 0%, transparent 30%, color-mix(in oklab, var(--background) 45%, transparent) 70%, var(--background) 100%)",
+          }}
         />
-        <div className="veil absolute inset-0" />
         <div
           className="animate-aurora absolute -bottom-1/3 left-1/2 h-[70vh] w-[80vw] -translate-x-1/2 rounded-full opacity-40 blur-[120px]"
           style={{ background: "radial-gradient(circle, var(--deep), transparent 70%)" }}
         />
       </div>
+
 
       <div className="mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 md:px-12 md:pb-20">
         <p className="eyebrow animate-fade-in mb-8 flex items-center gap-3">

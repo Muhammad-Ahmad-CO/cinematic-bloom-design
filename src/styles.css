@@ -228,3 +228,50 @@
     scroll-behavior: auto;
   }
 }
+
+/* ---- section signature motions ---- */
+@keyframes grow-line {
+  0% { transform: scaleY(0); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%) skewX(-12deg); }
+}
+
+@keyframes scan {
+  0%, 100% { transform: translateY(-10%); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  50% { transform: translateY(110%); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.6); opacity: 0.55; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent); }
+  70% { box-shadow: 0 0 0 10px color-mix(in oklab, var(--accent) 0%, transparent); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.6deg) translateY(0); }
+  50% { transform: rotate(1.6deg) translateY(-8px); }
+}
+
+@utility animate-grow-line { animation: grow-line 2.4s var(--ease-cine) forwards; transform-origin: top; }
+@utility animate-sheen { animation: sheen 7s var(--ease-cine) infinite; }
+@utility animate-scan { animation: scan 11s ease-in-out infinite; }
+@utility animate-ripple { animation: ripple 5s ease-out infinite; }
+@utility animate-ticker { animation: ticker 38s linear infinite; }
+@utility animate-pulse-dot { animation: pulse-dot 3.2s ease-out infinite; }
+@utility animate-sway { animation: sway 12s ease-in-out infinite; }

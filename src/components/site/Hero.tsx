@@ -21,7 +21,7 @@ export function Hero() {
             alt="Dark botanical forms lit by a single soft light"
             width={1920}
             height={1200}
-            className="animate-drift h-full w-full object-cover brightness-[1.45] contrast-[1.05] saturate-[1.1]"
+            className="animate-drift h-full w-full object-cover object-[72%_45%] brightness-[1.6] contrast-[1.05] saturate-[1.15]"
           />
         </div>
         <div

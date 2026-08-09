@@ -243,6 +243,7 @@ export function Work() {
 
 
 export function FinalCta() {
+  // Contact — signal rings radiate outward, a call going out.
   return (
     <section
       id="contact"
@@ -252,6 +253,15 @@ export function FinalCta() {
         className="animate-aurora pointer-events-none absolute inset-0 opacity-60 blur-[130px]"
         style={{ background: "radial-gradient(50% 50% at 50% 60%, var(--deep), transparent 70%)" }}
       />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        {[0, 1.6, 3.2].map((d) => (
+          <span
+            key={d}
+            className="animate-ripple absolute h-[22rem] w-[22rem] rounded-full border border-accent/25 md:h-[34rem] md:w-[34rem]"
+            style={{ animationDelay: `${d}s` }}
+          />
+        ))}
+      </div>
       <div className="relative mx-auto w-full max-w-[1600px] px-6 py-28 md:px-12">
         <h2 className="display-xl text-[clamp(2.1rem,8vw,8rem)]">
           <Reveal>Let&apos;s create</Reveal>
@@ -276,13 +286,30 @@ export function FinalCta() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="relative border-t border-border">
+      <div className="overflow-hidden border-b border-border py-4">
+        <div className="animate-ticker flex w-max gap-10 text-xs tracking-[0.3em] whitespace-nowrap text-muted-foreground uppercase">
+          {Array.from({ length: 2 }).map((_, k) => (
+            <span key={k} className="flex gap-10">
+              {["Verdant Studio", "Available for 2026", "Lisbon", "Design & Motion", "Est. 2016"].map(
+                (t) => (
+                  <span key={t} className="flex items-center gap-10">
+                    {t}
+                    <span className="h-1 w-1 rounded-full bg-accent/70" />
+                  </span>
+                ),
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="mx-auto grid max-w-[1600px] gap-12 px-6 py-16 md:grid-cols-4 md:px-12 md:py-20">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="h-2 w-2 rounded-full bg-accent" />
+            <span className="animate-pulse-dot h-2 w-2 rounded-full bg-accent" />
             <span className="text-sm font-semibold tracking-[0.28em] uppercase">Verdant</span>
           </div>
+
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
             An experimental design studio working between technology and the natural world.
           </p>

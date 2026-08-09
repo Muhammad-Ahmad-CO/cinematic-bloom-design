@@ -4,11 +4,30 @@ import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
 import work3 from "@/assets/work-3.jpg";
 import { Reveal } from "./Reveal";
-import { useParallax } from "@/hooks/use-reveal";
+import { useParallax, useReveal, useScrollProgress } from "@/hooks/use-reveal";
 
 export function Statement() {
+  // Philosophy — an idea "growing": a vine-like line draws downward on entry.
+  const { ref, visible } = useReveal<HTMLElement>(0.25);
+
   return (
-    <section id="about" className="mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56">
+    <section
+      ref={ref}
+      id="about"
+      className="relative mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56"
+    >
+      <div className="pointer-events-none absolute top-24 bottom-24 left-2 w-px overflow-hidden md:left-6">
+        <span
+          className={`block h-full w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent ${
+            visible ? "animate-grow-line" : "scale-y-0 opacity-0"
+          }`}
+        />
+      </div>
+      <span
+        className="animate-sway pointer-events-none absolute top-1/3 -right-10 h-64 w-64 rounded-full blur-[120px] md:h-96 md:w-96"
+        style={{ background: "radial-gradient(circle, var(--deep), transparent 70%)" }}
+      />
+
       <Reveal className="eyebrow mb-14">(01) — Philosophy</Reveal>
       <h2 className="display-xl text-[clamp(2rem,7.2vw,7rem)]">
         <Reveal delay={60}>Ideas that grow</Reveal>
@@ -29,6 +48,7 @@ export function Statement() {
 }
 
 export function FullWidthVisual() {
+  // Field study — a slow scanning light passes over the specimen.
   const { ref, offset } = useParallax<HTMLDivElement>(0.3);
 
   return (
@@ -43,12 +63,20 @@ export function FullWidthVisual() {
         style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
       />
       <div className="pointer-events-none absolute inset-0 bg-background/25" />
+      <div
+        className="animate-scan pointer-events-none absolute inset-x-0 top-0 h-24 blur-[2px]"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent, color-mix(in oklab, var(--accent) 22%, transparent), transparent)",
+        }}
+      />
       <span className="eyebrow absolute bottom-6 left-6 md:bottom-10 md:left-12">
         Fig. 02 — Field study, Northern greenhouse
       </span>
     </section>
   );
 }
+
 
 const SERVICES = [
   { n: "01", t: "Creative Direction", d: "Positioning, art direction and the tone that carries it." },
@@ -60,13 +88,29 @@ const SERVICES = [
 ];
 
 export function Services() {
+  // Capabilities — a progress rail fills as the list scrolls past, like work being completed.
+  const { ref, progress } = useScrollProgress<HTMLDivElement>();
+
   return (
     <section id="process" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
       <Reveal className="eyebrow mb-16">(02) — Capabilities</Reveal>
-      <div className="border-t border-border">
+      <div ref={ref} className="relative border-t border-border pl-4 md:pl-8">
+        <span className="pointer-events-none absolute top-0 bottom-0 left-0 w-px bg-border">
+          <span
+            className="block w-px origin-top bg-accent transition-[height] duration-150 ease-out"
+            style={{ height: `${Math.round(progress * 100)}%` }}
+          />
+        </span>
         {SERVICES.map((s, i) => (
           <Reveal key={s.n} delay={i * 70}>
-            <article className="group grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3 border-b border-border px-2 py-8 transition-colors duration-500 hover:bg-card/60 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,20rem)] md:items-center md:px-6 md:py-11">
+            <article className="group relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3 overflow-hidden border-b border-border px-2 py-8 transition-colors duration-500 hover:bg-card/60 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,20rem)] md:items-center md:px-6 md:py-11">
+              <span
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -translate-x-full opacity-0 transition-opacity duration-500 group-hover:animate-sheen group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 14%, transparent), transparent)",
+                }}
+              />
               <span className="text-xs tracking-[0.24em] text-muted-foreground transition-colors duration-500 group-hover:text-accent">
                 {s.n}
               </span>
@@ -83,6 +127,7 @@ export function Services() {
     </section>
   );
 }
+
 
 export function Experimental() {
   return (
@@ -115,9 +160,20 @@ export function Experimental() {
 }
 
 export function BigStatement() {
+  // "Look twice" — a light sweeps across the type, inviting the second look.
   return (
-    <section id="statement" className="mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56">
-      <h2 className="display-xl text-[clamp(2rem,7.6vw,7.5rem)]">
+    <section
+      id="statement"
+      className="relative mx-auto max-w-[1600px] overflow-hidden px-6 py-32 md:px-12 md:py-56"
+    >
+      <span
+        className="animate-sheen pointer-events-none absolute inset-y-24 -left-1/3 w-1/3"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 16%, transparent), transparent)",
+        }}
+      />
+      <h2 className="display-xl relative text-[clamp(2rem,7.6vw,7.5rem)]">
         <Reveal>Built to make</Reveal>
         <Reveal delay={140}>people look</Reveal>
         <Reveal delay={280} className="text-accent/85">
@@ -134,6 +190,42 @@ const PROJECTS = [
   { img: work3, title: "Nocturne Field", cat: "Campaign / Art Direction", year: "2024" },
 ];
 
+function WorkCard({ p }: { p: (typeof PROJECTS)[number] }) {
+  // Selected work — each frame drifts inside its crop as it passes, like a moving camera.
+  const { ref, offset } = useParallax<HTMLAnchorElement>(0.22);
+
+  return (
+    <a
+      ref={ref}
+      href="#contact"
+      className="group block overflow-hidden rounded-2xl border border-border"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden md:aspect-[21/9]">
+        <img
+          src={p.img}
+          alt={`${p.title} — ${p.cat}`}
+          width={1400}
+          height={900}
+          loading="lazy"
+          className="h-[122%] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+          style={{ transform: `translate3d(0, ${offset - 40}px, 0)` }}
+        />
+        <div className="absolute inset-0 bg-background/35 transition-colors duration-700 group-hover:bg-background/55" />
+        <div className="absolute inset-x-0 bottom-0 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 p-6 transition-transform duration-700 ease-out group-hover:-translate-y-2 md:p-10">
+          <div className="min-w-0">
+            <h3 className="display-xl truncate text-[clamp(1.5rem,4vw,3.5rem)]">{p.title}</h3>
+            <p className="mt-2 text-xs tracking-[0.22em] text-muted-foreground uppercase">
+              {p.cat}
+            </p>
+            <span className="mt-3 block h-px w-0 bg-accent transition-all duration-700 ease-out group-hover:w-40" />
+          </div>
+          <span className="shrink-0 text-xs tracking-[0.22em] text-muted-foreground">{p.year}</span>
+        </div>
+      </div>
+    </a>
+  );
+}
+
 export function Work() {
   return (
     <section id="work" className="mx-auto max-w-[1600px] px-6 py-28 md:px-12 md:py-40">
@@ -141,35 +233,7 @@ export function Work() {
       <div className="flex flex-col gap-8 md:gap-16">
         {PROJECTS.map((p, i) => (
           <Reveal key={p.title} delay={i * 90}>
-            <a
-              href="#contact"
-              className="group block overflow-hidden rounded-2xl border border-border"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden md:aspect-[21/9]">
-                <img
-                  src={p.img}
-                  alt={`${p.title} — ${p.cat}`}
-                  width={1400}
-                  height={900}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-background/35 transition-colors duration-700 group-hover:bg-background/55" />
-                <div className="absolute inset-x-0 bottom-0 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 p-6 transition-transform duration-700 ease-out group-hover:-translate-y-2 md:p-10">
-                  <div className="min-w-0">
-                    <h3 className="display-xl truncate text-[clamp(1.5rem,4vw,3.5rem)]">
-                      {p.title}
-                    </h3>
-                    <p className="mt-2 text-xs tracking-[0.22em] text-muted-foreground uppercase">
-                      {p.cat}
-                    </p>
-                  </div>
-                  <span className="shrink-0 text-xs tracking-[0.22em] text-muted-foreground">
-                    {p.year}
-                  </span>
-                </div>
-              </div>
-            </a>
+            <WorkCard p={p} />
           </Reveal>
         ))}
       </div>
@@ -177,7 +241,9 @@ export function Work() {
   );
 }
 
+
 export function FinalCta() {
+  // Contact — signal rings radiate outward, a call going out.
   return (
     <section
       id="contact"
@@ -187,6 +253,15 @@ export function FinalCta() {
         className="animate-aurora pointer-events-none absolute inset-0 opacity-60 blur-[130px]"
         style={{ background: "radial-gradient(50% 50% at 50% 60%, var(--deep), transparent 70%)" }}
       />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        {[0, 1.6, 3.2].map((d) => (
+          <span
+            key={d}
+            className="animate-ripple absolute h-[22rem] w-[22rem] rounded-full border border-accent/25 md:h-[34rem] md:w-[34rem]"
+            style={{ animationDelay: `${d}s` }}
+          />
+        ))}
+      </div>
       <div className="relative mx-auto w-full max-w-[1600px] px-6 py-28 md:px-12">
         <h2 className="display-xl text-[clamp(2.1rem,8vw,8rem)]">
           <Reveal>Let&apos;s create</Reveal>
@@ -211,13 +286,30 @@ export function FinalCta() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border">
+    <footer className="relative border-t border-border">
+      <div className="overflow-hidden border-b border-border py-4">
+        <div className="animate-ticker flex w-max gap-10 text-xs tracking-[0.3em] whitespace-nowrap text-muted-foreground uppercase">
+          {Array.from({ length: 2 }).map((_, k) => (
+            <span key={k} className="flex gap-10">
+              {["Verdant Studio", "Available for 2026", "Lisbon", "Design & Motion", "Est. 2016"].map(
+                (t) => (
+                  <span key={t} className="flex items-center gap-10">
+                    {t}
+                    <span className="h-1 w-1 rounded-full bg-accent/70" />
+                  </span>
+                ),
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="mx-auto grid max-w-[1600px] gap-12 px-6 py-16 md:grid-cols-4 md:px-12 md:py-20">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="h-2 w-2 rounded-full bg-accent" />
+            <span className="animate-pulse-dot h-2 w-2 rounded-full bg-accent" />
             <span className="text-sm font-semibold tracking-[0.28em] uppercase">Verdant</span>
           </div>
+
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
             An experimental design studio working between technology and the natural world.
           </p>

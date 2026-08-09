@@ -11,7 +11,7 @@ export function Hero() {
       ref={ref}
       className="grain relative flex min-h-[100svh] w-full items-end overflow-hidden"
     >
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0"
           style={{ transform: `translate3d(0, ${offset * 0.4}px, 0)` }}
@@ -38,7 +38,7 @@ export function Hero() {
       </div>
 
 
-      <div className="mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 md:px-12 md:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 md:px-12 md:pb-20">
         <p className="eyebrow animate-fade-in mb-8 flex items-center gap-3">
           <span className="animate-breathe inline-block h-1.5 w-1.5 rounded-full bg-accent" />
           Creative studio — Est. 2019

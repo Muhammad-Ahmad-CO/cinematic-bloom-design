@@ -7,15 +7,55 @@ import { Reveal } from "./Reveal";
 import { useParallax, useReveal, useScrollProgress } from "@/hooks/use-reveal";
 
 export function Statement() {
-  // Philosophy — an idea "growing": a vine-like line draws downward on entry.
+  // Philosophy — an idea "growing": a vine-like line draws downward on entry,
+  // with a scroll-driven mist + drifting spores behind the words.
   const { ref, visible } = useReveal<HTMLElement>(0.25);
+  const { ref: progRef, progress } = useScrollProgress<HTMLDivElement>();
 
   return (
     <section
       ref={ref}
       id="about"
-      className="relative mx-auto max-w-[1600px] px-6 py-32 md:px-12 md:py-56"
+      className="relative mx-auto max-w-[1600px] overflow-hidden px-6 py-32 md:px-12 md:py-56"
     >
+      {/* scroll-driven background: mist rises and light opens as you read */}
+      <div ref={progRef} className="pointer-events-none absolute inset-0 -z-10">
+        <span
+          className="absolute inset-x-0 bottom-0 block h-[80%]"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, color-mix(in oklab, var(--deep) 60%, transparent))",
+            opacity: 0.25 + progress * 0.55,
+            transform: `translate3d(0, ${(1 - progress) * 60}px, 0)`,
+          }}
+        />
+        <span
+          className="absolute top-1/2 left-1/2 block h-[60vh] w-[60vw] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%)",
+            opacity: 0.15 + progress * 0.5,
+            transform: `translate3d(-50%, -50%, 0) scale(${0.7 + progress * 0.6})`,
+          }}
+        />
+        <span
+          className="absolute right-[12%] bottom-0 block h-px origin-bottom bg-gradient-to-t from-accent/50 to-transparent"
+          style={{ height: `${progress * 70}%`, width: "1px" }}
+        />
+        {[0, 1, 2, 3, 4].map((i) => (
+          <span
+            key={i}
+            className="animate-spore absolute bottom-[10%] h-1 w-1 rounded-full bg-accent/60 blur-[1px]"
+            style={{
+              left: `${12 + i * 18}%`,
+              animationDelay: `${i * 2.6}s`,
+              animationDuration: `${12 + i * 2}s`,
+              opacity: 0.2 + progress * 0.8,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="pointer-events-none absolute top-24 bottom-24 left-2 w-px overflow-hidden md:left-6">
         <span
           className={`block h-full w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent ${
@@ -48,20 +88,26 @@ export function Statement() {
 }
 
 export function FullWidthVisual() {
-  // Field study — a slow scanning light passes over the specimen.
+  // Field study — the leaf grows into frame, then a slow scanning light passes over it.
   const { ref, offset } = useParallax<HTMLDivElement>(0.3);
+  const { ref: growRef, visible } = useReveal<HTMLDivElement>(0.3);
 
   return (
     <section ref={ref} className="relative h-[70vh] w-full overflow-hidden md:h-[92vh]">
-      <img
-        src={wideImg}
-        alt="Translucent leaf glowing against a black backdrop"
-        width={1920}
-        height={1088}
-        loading="lazy"
-        className="h-[125%] w-full object-cover"
+      <div
+        ref={growRef}
+        className="h-full w-full"
         style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
-      />
+      >
+        <img
+          src={wideImg}
+          alt="Translucent leaf glowing against a black backdrop"
+          width={1920}
+          height={1088}
+          loading="lazy"
+          className={`leaf-grow h-[125%] w-full object-cover ${visible ? "leaf-grown" : ""}`}
+        />
+      </div>
       <div className="pointer-events-none absolute inset-0 bg-background/25" />
       <div
         className="animate-scan pointer-events-none absolute inset-x-0 top-0 h-24 blur-[2px]"
@@ -76,6 +122,7 @@ export function FullWidthVisual() {
     </section>
   );
 }
+
 
 
 const SERVICES = [

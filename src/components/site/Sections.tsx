@@ -1,4 +1,5 @@
 import wideImg from "@/assets/wide.jpg";
+import podImg from "@/assets/philosophy-pod.png";
 import orbImg from "@/assets/orb.png";
 import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";

@@ -16,13 +16,15 @@ export function Hero() {
           className="absolute inset-0"
           style={{ transform: `translate3d(0, ${offset * 0.4}px, 0)` }}
         >
-          <img
-            src={heroImg}
-            alt="Dark botanical forms lit by a single soft light"
-            width={1920}
-            height={1200}
-            className="animate-drift h-full w-full object-cover object-[72%_45%] brightness-[1.6] contrast-[1.05] saturate-[1.15]"
-          />
+          <div className="animate-wind h-full w-full">
+            <img
+              src={heroImg}
+              alt="Dark botanical forms lit by a single soft light"
+              width={1920}
+              height={1200}
+              className="animate-drift h-full w-full object-cover object-[72%_45%] brightness-[1.6] contrast-[1.05] saturate-[1.15]"
+            />
+          </div>
         </div>
         <div
           className="absolute inset-0"
@@ -36,6 +38,26 @@ export function Hero() {
           style={{ background: "radial-gradient(circle, var(--deep), transparent 70%)" }}
         />
       </div>
+
+      {/* moonlight falling on the headline */}
+      <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
+        <span
+          className="animate-moonlight absolute -top-[30%] left-[8%] h-[130%] w-[46%] blur-[60px] md:w-[38%]"
+          style={{
+            background:
+              "linear-gradient(168deg, color-mix(in oklab, var(--foreground) 16%, transparent) 0%, color-mix(in oklab, var(--foreground) 6%, transparent) 45%, transparent 78%)",
+            transform: "rotate(6deg)",
+          }}
+        />
+        <span
+          className="animate-moon-shimmer absolute bottom-[16%] left-[2%] h-[42vh] w-[52vw] rounded-full blur-[110px] md:w-[40vw]"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in oklab, var(--foreground) 12%, transparent), transparent 70%)",
+          }}
+        />
+      </div>
+
 
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 md:px-12 md:pb-20">

@@ -94,7 +94,11 @@ export function FullWidthVisual() {
 
   return (
     <section ref={ref} className="relative h-[70vh] w-full overflow-hidden md:h-[92vh]">
-      <div ref={growRef} className="h-full w-full">
+      <div
+        ref={growRef}
+        className="h-full w-full"
+        style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
+      >
         <img
           src={wideImg}
           alt="Translucent leaf glowing against a black backdrop"
@@ -102,7 +106,6 @@ export function FullWidthVisual() {
           height={1088}
           loading="lazy"
           className={`leaf-grow h-[125%] w-full object-cover ${visible ? "leaf-grown" : ""}`}
-          style={{ transform: `translate3d(0, ${offset - 60}px, 0)` }}
         />
       </div>
       <div className="pointer-events-none absolute inset-0 bg-background/25" />

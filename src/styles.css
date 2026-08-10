@@ -275,3 +275,49 @@
 @utility animate-ticker { animation: ticker 38s linear infinite; }
 @utility animate-pulse-dot { animation: pulse-dot 3.2s ease-out infinite; }
 @utility animate-sway { animation: sway 12s ease-in-out infinite; }
+
+/* ---- wind, moonlight & growth ---- */
+@keyframes wind-sway {
+  0%, 100% { transform: perspective(1200px) rotateZ(-0.35deg) skewX(0.25deg) translate3d(-0.5%, 0, 0); }
+  35% { transform: perspective(1200px) rotateZ(0.3deg) skewX(-0.35deg) translate3d(0.6%, -0.4%, 0); }
+  70% { transform: perspective(1200px) rotateZ(-0.15deg) skewX(0.15deg) translate3d(-0.2%, 0.3%, 0); }
+}
+
+@keyframes moonlight {
+  0%, 100% { opacity: 0.32; transform: translate3d(-2%, 0, 0) scale(1); }
+  50% { opacity: 0.6; transform: translate3d(2%, -1.5%, 0) scale(1.06); }
+}
+
+@keyframes moon-shimmer {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+@keyframes spore-rise {
+  0% { transform: translate3d(0, 20px, 0); opacity: 0; }
+  20% { opacity: 0.7; }
+  100% { transform: translate3d(18px, -120px, 0); opacity: 0; }
+}
+
+@utility animate-wind { animation: wind-sway 16s ease-in-out infinite; will-change: transform; }
+@utility animate-moonlight { animation: moonlight 14s ease-in-out infinite; }
+@utility animate-moon-shimmer { animation: moon-shimmer 9s ease-in-out infinite; }
+@utility animate-spore { animation: spore-rise 14s linear infinite; }
+
+/* leaf grows into view */
+@utility leaf-grow {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.14) translateY(4%);
+  transform-origin: 50% 100%;
+  filter: brightness(0.6) saturate(0.7);
+  transition:
+    clip-path 2200ms var(--ease-cine),
+    transform 2600ms var(--ease-cine),
+    filter 2200ms var(--ease-cine);
+}
+
+@utility leaf-grown {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1) translateY(0);
+  filter: brightness(1) saturate(1);
+}

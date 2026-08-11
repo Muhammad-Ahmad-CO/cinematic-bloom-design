@@ -304,6 +304,22 @@
 @utility animate-moon-shimmer { animation: moon-shimmer 9s ease-in-out infinite; }
 @utility animate-spore { animation: spore-rise 14s linear infinite; }
 
+/* ---- philosophy centerpiece (cinematic subject bloom) ---- */
+@keyframes pod-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.2deg) scale(1); }
+  50% { transform: translate3d(0, -22px, 0) rotate(1.2deg) scale(1.03); }
+}
+
+@keyframes filament {
+  0% { transform: rotate(var(--fil-rot, 0deg)) translateY(6%) scaleY(0.7); opacity: 0; }
+  30% { opacity: 0.6; }
+  100% { transform: rotate(var(--fil-rot, 0deg)) translateY(-14%) scaleY(1.15); opacity: 0; }
+}
+
+@utility animate-pod-float { animation: pod-float 13s ease-in-out infinite; will-change: transform; }
+@utility animate-filament { animation: filament 12s ease-in-out infinite; }
+
+
 /* leaf grows into view */
 @utility leaf-grow {
   clip-path: inset(0 0 100% 0);

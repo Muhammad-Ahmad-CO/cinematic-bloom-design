@@ -1,4 +1,5 @@
 import wideImg from "@/assets/wide.jpg";
+import podImg from "@/assets/philosophy-pod.png";
 import orbImg from "@/assets/orb.png";
 import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
@@ -68,22 +69,72 @@ export function Statement() {
         style={{ background: "radial-gradient(circle, var(--deep), transparent 70%)" }}
       />
 
-      <Reveal className="eyebrow mb-14">(01) — Philosophy</Reveal>
-      <h2 className="display-xl text-[clamp(2rem,7.2vw,7rem)]">
-        <Reveal delay={60}>Ideas that grow</Reveal>
-        <Reveal delay={180} className="text-accent/85">
-          beyond the
+
+      {/* corn-style cinematic centerpiece: subject blooms out of a green glow,
+          husk filaments drift, everything reacts to scroll */}
+      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+        <span
+          className="animate-breathe absolute h-[560px] w-[560px] rounded-full blur-[120px]"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in oklab, var(--primary) 42%, transparent), color-mix(in oklab, var(--deep) 40%, transparent) 45%, transparent 72%)",
+            opacity: 0.25 + progress * 0.55,
+          }}
+        />
+        <div
+          className={`relative transition-[opacity,transform,filter] duration-[2200ms] ease-[var(--ease-cine)] ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            transform: `translate3d(0, ${(0.5 - progress) * 90}px, 0) scale(${visible ? 1 : 0.82})`,
+            filter: `blur(${visible ? 0 : 14}px)`,
+          }}
+        >
+          <img
+            src={podImg}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width={1024}
+            height={1536}
+            className="animate-pod-float h-[300px] w-auto max-w-none opacity-35 mix-blend-screen md:h-[460px]"
+            style={{ filter: "drop-shadow(0 0 90px color-mix(in oklab, var(--primary) 35%, transparent))" }}
+          />
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <span
+              key={i}
+              className="animate-filament absolute top-1/2 left-1/2 block h-[220px] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
+              style={{
+                ["--fil-rot" as string]: `${-26 + i * 10}deg`,
+                transform: `rotate(${-26 + i * 10}deg)`,
+                animationDelay: `${i * 1.4}s`,
+                animationDuration: `${10 + i * 1.6}s`,
+                opacity: 0.25 + progress * 0.5,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10">
+        <Reveal className="eyebrow mb-14">(01) — Philosophy</Reveal>
+        <h2 className="display-xl text-[clamp(2rem,7.2vw,7rem)] [text-shadow:0_0_60px_color-mix(in_oklab,var(--background)_85%,transparent)]">
+          <Reveal delay={60}>Ideas that grow</Reveal>
+          <Reveal delay={180} className="text-accent/85">
+            beyond the
+          </Reveal>
+          <Reveal delay={300}>expected.</Reveal>
+        </h2>
+        <Reveal
+          delay={420}
+          className="mt-16 ml-auto max-w-md text-sm leading-relaxed text-muted-foreground"
+        >
+          Every project starts as a small, stubborn idea. We give it structure, light and restraint —
+          then let it take up all the space it deserves.
         </Reveal>
-        <Reveal delay={300}>expected.</Reveal>
-      </h2>
-      <Reveal
-        delay={420}
-        className="mt-16 ml-auto max-w-md text-sm leading-relaxed text-muted-foreground"
-      >
-        Every project starts as a small, stubborn idea. We give it structure, light and restraint —
-        then let it take up all the space it deserves.
-      </Reveal>
+      </div>
     </section>
+
   );
 }
 

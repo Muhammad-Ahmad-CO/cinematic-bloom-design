@@ -74,7 +74,7 @@ export function Statement() {
           husk filaments drift, everything reacts to scroll */}
       <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
         <span
-          className="animate-breathe absolute h-[70vh] w-[70vh] rounded-full blur-[120px]"
+          className="animate-breathe absolute h-[560px] w-[560px] rounded-full blur-[120px]"
           style={{
             background:
               "radial-gradient(circle, color-mix(in oklab, var(--primary) 42%, transparent), color-mix(in oklab, var(--deep) 40%, transparent) 45%, transparent 72%)",
@@ -97,13 +97,13 @@ export function Statement() {
             loading="lazy"
             width={1024}
             height={1536}
-            className="animate-pod-float h-[38vh] w-auto max-w-none opacity-40 mix-blend-screen md:h-[54vh]"
+            className="animate-pod-float h-[300px] w-auto max-w-none opacity-35 mix-blend-screen md:h-[460px]"
             style={{ filter: "drop-shadow(0 0 90px color-mix(in oklab, var(--primary) 35%, transparent))" }}
           />
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <span
               key={i}
-              className="animate-filament absolute top-1/2 left-1/2 block h-[26vh] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
+              className="animate-filament absolute top-1/2 left-1/2 block h-[220px] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
               style={{
                 ["--fil-rot" as string]: `${-26 + i * 10}deg`,
                 transform: `rotate(${-26 + i * 10}deg)`,

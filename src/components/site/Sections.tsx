@@ -97,13 +97,13 @@ export function Statement() {
             loading="lazy"
             width={1024}
             height={1536}
-            className="animate-pod-float h-[52vh] w-auto max-w-none opacity-70 mix-blend-screen md:h-[76vh]"
-            style={{ filter: "drop-shadow(0 0 90px color-mix(in oklab, var(--primary) 45%, transparent))" }}
+            className="animate-pod-float h-[38vh] w-auto max-w-none opacity-40 mix-blend-screen md:h-[54vh]"
+            style={{ filter: "drop-shadow(0 0 90px color-mix(in oklab, var(--primary) 35%, transparent))" }}
           />
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <span
               key={i}
-              className="animate-filament absolute top-1/2 left-1/2 block h-[38vh] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
+              className="animate-filament absolute top-1/2 left-1/2 block h-[26vh] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
               style={{
                 ["--fil-rot" as string]: `${-26 + i * 10}deg`,
                 transform: `rotate(${-26 + i * 10}deg)`,

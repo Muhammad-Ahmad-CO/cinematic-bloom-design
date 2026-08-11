@@ -105,6 +105,7 @@ export function Statement() {
               key={i}
               className="animate-filament absolute top-1/2 left-1/2 block h-[38vh] w-px origin-bottom bg-gradient-to-t from-transparent via-accent/45 to-transparent"
               style={{
+                ["--fil-rot" as string]: `${-26 + i * 10}deg`,
                 transform: `rotate(${-26 + i * 10}deg)`,
                 animationDelay: `${i * 1.4}s`,
                 animationDuration: `${10 + i * 1.6}s`,

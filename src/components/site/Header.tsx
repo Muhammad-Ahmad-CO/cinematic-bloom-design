@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -68,32 +69,45 @@ export function Header() {
         </div>
       </div>
 
-      <div
-        className={cn(
-          "overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl transition-[max-height,opacity] duration-500 ease-out md:hidden",
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
-        )}
-      >
-        <nav aria-label="Mobile" className="flex flex-col px-6 py-4">
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
+          >
+        <motion.nav
+          aria-label="Mobile"
+          initial="closed"
+          animate="open"
+          variants={{ open: { transition: { staggerChildren: 0.055, delayChildren: 0.08 } }, closed: {} }}
+          className="flex flex-col px-6 py-4"
+        >
           {NAV.map((item) => (
-            <a
+            <motion.a
               key={item.label}
               href={item.href}
               onClick={() => setOpen(false)}
+              variants={{ closed: { opacity: 0, y: 12 }, open: { opacity: 1, y: 0 } }}
               className="border-b border-border py-4 text-sm tracking-[0.22em] text-muted-foreground uppercase last:border-0 hover:text-accent"
             >
               {item.label}
-            </a>
+            </motion.a>
           ))}
-          <a
+          <motion.a
             href="#contact"
             onClick={() => setOpen(false)}
+            variants={{ closed: { opacity: 0, y: 12 }, open: { opacity: 1, y: 0 } }}
             className="mt-4 rounded-full border border-border px-5 py-3 text-center text-[0.7rem] tracking-[0.2em] uppercase hover:border-accent hover:text-accent"
           >
             Start a Project
-          </a>
-        </nav>
-      </div>
+          </motion.a>
+        </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

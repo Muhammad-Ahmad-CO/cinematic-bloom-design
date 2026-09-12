@@ -1,21 +1,49 @@
+import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
-import { useParallax } from "@/hooks/use-reveal";
+import { gsap, useGSAP } from "@/lib/gsap";
 
 export function Hero() {
-  const { ref, offset } = useParallax<HTMLDivElement>(0.25);
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) {
+        gsap.set("[data-hero-reveal]", { opacity: 1, y: 0 });
+        return;
+      }
+
+      const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      intro
+        .fromTo("[data-hero-image]", { scale: 1.16, opacity: 0 }, { scale: 1.08, opacity: 1, duration: 2.1 })
+        .fromTo("[data-hero-kicker]", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.45)
+        .fromTo("[data-hero-line]", { yPercent: 115 }, { yPercent: 0, duration: 1.25, stagger: 0.12 }, 0.55)
+        .fromTo("[data-hero-meta]", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 1.05);
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      })
+        .to("[data-hero-image]", { yPercent: 12, scale: 1.15, ease: "none" }, 0)
+        .to("[data-hero-copy]", { yPercent: 16, opacity: 0.2, ease: "none" }, 0)
+        .to("[data-moonlight]", { xPercent: 18, yPercent: 12, opacity: 0.15, ease: "none" }, 0);
+    },
+    { scope: heroRef },
+  );
 
   return (
     <section
       id="top"
-      ref={ref}
+      ref={heroRef}
       className="grain relative flex min-h-[100svh] w-full items-end overflow-hidden"
     >
       <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{ transform: `translate3d(0, ${offset * 0.4}px, 0)` }}
-        >
+        <div data-hero-image className="absolute inset-0 opacity-0 will-change-transform">
           <div className="animate-wind h-full w-full">
             <img
               src={heroImg}
@@ -42,7 +70,8 @@ export function Hero() {
       {/* moonlight falling on the headline */}
       <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
         <span
-          className="animate-moonlight absolute -top-[30%] left-[8%] h-[130%] w-[46%] blur-[60px] md:w-[38%]"
+          data-moonlight
+          className="animate-moonlight absolute -top-[30%] left-[8%] h-[130%] w-[46%] blur-[60px] will-change-transform md:w-[38%]"
           style={{
             background:
               "linear-gradient(168deg, color-mix(in oklab, var(--foreground) 16%, transparent) 0%, color-mix(in oklab, var(--foreground) 6%, transparent) 45%, transparent 78%)",
@@ -60,19 +89,18 @@ export function Hero() {
 
 
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 md:px-12 md:pb-20">
-        <p className="eyebrow animate-fade-in mb-8 flex items-center gap-3">
+      <div data-hero-copy className="relative z-10 mx-auto w-full max-w-[1600px] px-6 pt-32 pb-16 will-change-transform md:px-12 md:pb-20">
+        <p data-hero-kicker data-hero-reveal className="eyebrow mb-8 flex items-center gap-3 opacity-0">
           <span className="animate-breathe inline-block h-1.5 w-1.5 rounded-full bg-accent" />
           Creative studio — Est. 2019
         </p>
 
-        <h1 className="display-xl animate-fade-in text-[clamp(2.75rem,11.5vw,11.5rem)]">
-          Design,
-          <br />
-          <span className="text-muted-foreground/80">Re</span>imagined.
+        <h1 className="display-xl text-[clamp(2.75rem,11.5vw,11.5rem)]">
+          <span className="block overflow-hidden"><span data-hero-line data-hero-reveal className="block">Design,</span></span>
+          <span className="block overflow-hidden"><span data-hero-line data-hero-reveal className="block"><span className="text-muted-foreground/80">Re</span>imagined.</span></span>
         </h1>
 
-        <div className="mt-10 grid gap-10 border-t border-border pt-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div data-hero-meta data-hero-reveal className="mt-10 grid gap-10 border-t border-border pt-8 opacity-0 md:grid-cols-[1fr_auto] md:items-end">
           <p className="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
             We build digital work at the edge of technology and nature — quiet interfaces, cinematic
             brand systems, and experiences engineered to hold attention long after the scroll ends.
